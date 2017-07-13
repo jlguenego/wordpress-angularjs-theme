@@ -1,10 +1,22 @@
+import 'angular-sanitize';
+
 const app = angular.module('jlg-layout', [
-	'jlg-layout',
+	'ngSanitize',
 ]);
 
 import jlgHeaderUrl from './tmpl/jlg-header.html';
 app.component('jlgHeader', {
-	template: jlgHeaderUrl
+	template: jlgHeaderUrl,
+	controller: function JlgHeaderCtrl($http, $log) {
+		'ngInject';
+		const ctrl = this;
+		$http.get(window.wordpressUrl + '').then(function(response) {
+			$log.debug('response', response);
+			ctrl.data = response.data;
+		}).catch(function(error) {
+			$log.error('error', error);
+		});
+	}
 });
 
 import jlgBodyUrl from './tmpl/jlg-body.html';
