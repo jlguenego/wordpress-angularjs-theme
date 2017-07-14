@@ -12,7 +12,8 @@
   "dependencies": {
     "@uirouter/angularjs": "^1.0.5",
     "angular": "^1.6.5",
-    "angular-sanitize": "^1.6.5"
+    "angular-sanitize": "^1.6.5",
+    "font-awesome": "^4.7.0"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
