@@ -22,9 +22,15 @@ app.component('jlgHeader', {
 import jlgBodyUrl from './tmpl/jlg-body.html';
 app.component('jlgBody', {
 	template: jlgBodyUrl,
-	controller: function() {
+	controller: function JlgBodyUrl($http, $log) {
 		'ngInject';
-		this.name = 'Jean-Louis';
+		const ctrl = this;
+		$http.get(window.wordpressUrl + '/wp/v2/posts').then(function(response) {
+			$log.debug('response', response);
+			ctrl.posts = response.data;
+		}).catch(function(error) {
+			$log.error('error', error);
+		});
 	}
 });
 
