@@ -6,5 +6,5 @@
 	</featured-media>
 	<excerpt ng-bind-html="$ctrl.excerpt">
     </excerpt>
-    <a ng-href="./posts/32">Lire la suite</a>
+    <a ui-sref="post({ id: $ctrl.post.id })">Lire la suite</a>
 </div>

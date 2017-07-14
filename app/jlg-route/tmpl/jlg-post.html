@@ -1,0 +1,5 @@
+<post>
+    <title ng-bind-html="$ctrl.post.title.rendered"></title>
+   <img ng-if="$ctrl.media" ng-src="{{$ctrl.media.source_url}}">
+	<content ng-bind-html="$ctrl.post.content.rendered"></content>
+</post>
