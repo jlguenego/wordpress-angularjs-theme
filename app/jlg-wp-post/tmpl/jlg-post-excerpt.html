@@ -1,3 +1,10 @@
-<title ng-bind-html="$ctrl.post.title.rendered"></title>
-<featured-media><img ng-src="{{$ctrl.media.source_url}}" ></featured-media>
-<excerpt ng-bind-html="$ctrl.post.excerpt.rendered"></excerpt>
+<div ng-if="$ctrl.ready">
+	<title ng-bind-html="$ctrl.post.title.rendered"></title>
+	<featured-media>
+		<img ng-if="$ctrl.media" ng-src="{{$ctrl.media.source_url}}">
+		<i ng-if="!$ctrl.media" class="fa fa-picture-o" aria-hidden="true"></i>
+	</featured-media>
+	<excerpt ng-bind-html="$ctrl.post.excerpt.rendered">
+		asdfasdf
+	</excerpt>
+</div>
