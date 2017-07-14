@@ -67,6 +67,8 @@ app.component('jlgPostExcerpt', {
 					return;
 				}
 				ctrl.media = wordpress.medias.find(n => n.id === ctrl.post.featured_media);
+				let html = '';
+				ctrl.excerpt = ctrl.post.excerpt.rendered.replace(/<p class="link-more">.*<\/p>/, html);
 				ctrl.ready = true;
 			});
 		};
