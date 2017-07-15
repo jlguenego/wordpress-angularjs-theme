@@ -1,7 +1,9 @@
 import 'angular-sanitize';
+import '../jlg-wordpress/jlg-wordpress.js';
 
 const app = angular.module('jlg-layout', [
 	'ngSanitize',
+	'jlg-wordpress',
 ]);
 
 import jlgHeaderUrl from './tmpl/jlg-header.html';
@@ -10,6 +12,7 @@ app.component('jlgHeader', {
 	controller: function JlgHeaderCtrl($http, $log) {
 		'ngInject';
 		const ctrl = this;
+
 		$http.get(window.wordpressUrl + '').then(function(response) {
 			$log.debug('response', response);
 			ctrl.data = response.data;

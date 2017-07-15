@@ -1,9 +1,9 @@
 import '@uirouter/angularjs';
-import '../jlg-wp-post/jlg-wp-post.js';
+import '../jlg-wordpress/jlg-wordpress.js';
 
 const app = angular.module('jlg-route', [
 	'ui.router',
-	'jlg-wp-post',
+	'jlg-wordpress',
 ]);
 
 import jlgHomeUrl from './tmpl/jlg-home.html';
