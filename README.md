@@ -29,11 +29,13 @@ Then install, config, an start
 
 ```
 npm i
-npm config
+npm run config
 npm start
 ```
 
-The local website should be accessible at <a target="_blank" href="http://localhost:8000/app/">this link</a>.
+The website is accessible at [http://localhost:8000/app/](http://localhost:8000/app/).
+
+
 
 
 
@@ -44,7 +46,7 @@ The local website should be accessible at <a target="_blank" href="http://localh
 1. make a [development platform](#development-platform)
 2. build and deploy
 ```
-npm rebuild
-npm deploy
+npm run rebuild
+npm run deploy
 ```
 
