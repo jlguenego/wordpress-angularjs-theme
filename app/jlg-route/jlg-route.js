@@ -41,15 +41,15 @@ app.config(function ($locationProvider, $urlRouterProvider, $stateProvider) {
 		name: 'post',
 		url: '/posts/{id}',
 		template: jlgPostUrl,
-		controller: function PostCtrl($log, $stateParams, wordpress) {
+		controller: function PostCtrl($log, $stateParams, jlgWordpress) {
 			'ngInject';
 			$log.debug('PostCtrl', arguments);
 			const ctrl = this;
-			wordpress.ready().then(function() {
-				$log.debug('PostCtrl ready', $stateParams, wordpress.posts);
-				ctrl.post = wordpress.posts.find(n => n.id === +$stateParams.id);
+			jlgWordpress.ready().then(function() {
+				$log.debug('PostCtrl ready', $stateParams, jlgWordpress.posts);
+				ctrl.post = jlgWordpress.posts.find(n => n.id === +$stateParams.id);
 				$log.debug('ctrl.post', ctrl.post);
-				ctrl.media = wordpress.medias.find(n => n.id === ctrl.post.featured_media);
+				ctrl.media = jlgWordpress.medias.find(n => n.id === ctrl.post.featured_media);
 				
 			});
 			
