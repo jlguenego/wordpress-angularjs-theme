@@ -22,30 +22,19 @@ app.service('jlgWordpress', function JlgWordpress($http, $log, $q) {
 	]).then((responses) => {
 		isReady = true;
 		$log.debug('stack', stack);
-		let i = 0;
-		for (let  callback = stack.pop(); callback !== undefined; callback = stack.pop()) {
-			$log.debug('stack', stack);
-			$log.debug('callback', callback);
-			$log.debug('wordpress', service);
-			callback();
-			i++;
-			if (i > 10) {
-				break;
-			}
+		while (stack.length) {
+			stack.pop()();
 		}
 	}).catch((error) => {
 		$log.error('error', error);
 	});
 
-	service.ready = function() {
-		return $q((fulfill, reject) => {
-			if (isReady) {
-				fulfill();
-				return;
-			}
-			stack.push(fulfill);
-		});
-	};
+	service.ready = () => $q(fulfill => {
+		if (isReady) {
+			return fulfill();
+		}
+		stack.push(fulfill);
+	});
 
 });
 
