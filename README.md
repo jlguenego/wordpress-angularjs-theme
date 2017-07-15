@@ -33,7 +33,7 @@ npm config
 npm start
 ```
 
-The website is accessible at [http://localhost:8000/app/](http://localhost:8000/app/){:target="_blank"}.
+The website is accessible at <a target="_blank" href="http://localhost:8000/app/">http://localhost:8000/app/</a>.
 
 
 
