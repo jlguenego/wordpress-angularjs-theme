@@ -69,20 +69,19 @@ app.component('jlgPostExcerpt', {
 	template: jlgPostExcerptUrl,
 	controller: function JlgPostExcerptCtrl($log, jlgWordpress) {
 		'ngInject';
-		const ctrl = this;
-		ctrl.ready = false;
-		ctrl.$onInit = function() {
+		this.ready = false;
+		this.$onInit = () => {
 			jlgWordpress.ready().then(() => {
-				if (ctrl.id) {
-					ctrl.post = jlgWordpress.posts.find(n => n.id === ctrl.id);
+				if (this.id) {
+					this.post = jlgWordpress.posts.find(n => n.id === this.id);
 				}
-				if (ctrl.post === undefined) {
+				if (this.post === undefined) {
 					$log.error('post not found');
 					return;
 				}
-				ctrl.media = jlgWordpress.medias.find(n => n.id === ctrl.post.featured_media);
-				ctrl.excerpt = ctrl.post.excerpt.rendered.replace(/<p class="link-more">.*<\/p>/, '');
-				ctrl.ready = true;
+				this.media = jlgWordpress.medias.find(n => n.id === this.post.featured_media);
+				this.excerpt = this.post.excerpt.rendered.replace(/<p class="link-more">.*<\/p>/, '');
+				this.ready = true;
 			});
 		};
 
