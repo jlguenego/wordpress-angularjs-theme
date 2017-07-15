@@ -8,7 +8,7 @@ const app = angular.module('jlg-wordpress', [
 app.service('jlgWordpress', function JlgWordpress($http, $log, $q) {
 	'ngInject';
 	const service = this;
-	let isReady = false;
+	this.isReady = false;
 	const stack = [];
 	$q.all([
 		$http.get(window.wordpressUrl + '/wp/v2/posts').then(function(response) {
@@ -20,7 +20,7 @@ app.service('jlgWordpress', function JlgWordpress($http, $log, $q) {
 			service.medias = response.data;
 		}),
 	]).then((responses) => {
-		isReady = true;
+		this.isReady = true;
 		$log.debug('stack', stack);
 		while (stack.length) {
 			stack.pop()();
@@ -30,7 +30,7 @@ app.service('jlgWordpress', function JlgWordpress($http, $log, $q) {
 	});
 
 	service.ready = () => $q(fulfill => {
-		if (isReady) {
+		if (this.isReady) {
 			return fulfill();
 		}
 		stack.push(fulfill);
