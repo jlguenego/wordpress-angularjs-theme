@@ -9,16 +9,10 @@ const app = angular.module('jlg-layout', [
 import jlgHeaderUrl from './tmpl/jlg-header.html';
 app.component('jlgHeader', {
 	template: jlgHeaderUrl,
-	controller: function JlgHeaderCtrl($http, $log) {
+	controller: function JlgHeaderCtrl($http, $log, jlgWordpress) {
 		'ngInject';
 		const ctrl = this;
-
-		$http.get(window.wordpressUrl + '').then(function(response) {
-			$log.debug('response', response);
-			ctrl.data = response.data;
-		}).catch(function(error) {
-			$log.error('error', error);
-		});
+		ctrl.jlgWordpress = jlgWordpress;
 	}
 });
 

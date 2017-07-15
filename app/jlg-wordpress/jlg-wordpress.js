@@ -11,6 +11,10 @@ app.service('jlgWordpress', function JlgWordpress($http, $log, $q) {
 	this.isReady = false;
 	const stack = [];
 	$q.all([
+		$http.get(window.wordpressUrl + '').then(function(response) {
+			$log.debug('response', response);
+			service.info = response.data;
+		}),
 		$http.get(window.wordpressUrl + '/wp/v2/posts').then(function(response) {
 			$log.debug('response', response);
 			service.posts = response.data;
