@@ -36,6 +36,10 @@ app.provider('jlgWordpress', function JlgWordpressProvider() {
 					$log.debug('response', response);
 					service.medias = response.data;
 				}),
+				$http.get(url + '/wp/v2/pages').then(function(response) {
+					$log.debug('response', response);
+					service.pages = response.data;
+				}),
 			]).then((responses) => {
 				this.isReady = true;
 				$log.debug('stack', stack);
@@ -89,5 +93,31 @@ app.component('jlgPostExcerpt', {
 	bindings: {
 		id: '<?',
 		post: '<?'
+	}
+});
+
+import jlgPageUrl from './tmpl/jlg-page.html';
+app.component('jlgPage', {
+	template: jlgPageUrl,
+	controller: function JlgPageCtrl($log, jlgWordpress) {
+		'ngInject';
+		this.ready = false;
+		this.$onInit = () => {
+			jlgWordpress.ready().then(() => {
+				if (this.title) {
+					this.page = jlgWordpress.pages.find(n => n.title.rendered === this.title);
+				}
+				if (this.page === undefined) {
+					$log.error('page not found');
+					return;
+				}
+				this.ready = true;
+			});
+		};
+
+	},
+	bindings: {
+		title: '<?',
+		page: '<?'
 	}
 });
