@@ -73,7 +73,6 @@ app.component('jlgPostExcerpt', {
 		ctrl.ready = false;
 		ctrl.$onInit = function() {
 			jlgWordpress.ready().then(() => {
-				$log.debug('on demarre ');
 				if (ctrl.id) {
 					ctrl.post = jlgWordpress.posts.find(n => n.id === ctrl.id);
 				}
@@ -82,8 +81,7 @@ app.component('jlgPostExcerpt', {
 					return;
 				}
 				ctrl.media = jlgWordpress.medias.find(n => n.id === ctrl.post.featured_media);
-				let html = '';
-				ctrl.excerpt = ctrl.post.excerpt.rendered.replace(/<p class="link-more">.*<\/p>/, html);
+				ctrl.excerpt = ctrl.post.excerpt.rendered.replace(/<p class="link-more">.*<\/p>/, '');
 				ctrl.ready = true;
 			});
 		};
