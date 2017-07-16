@@ -22,6 +22,8 @@ const Promise = require('bluebird');
 Promise.promisifyAll(fs);
 const globAsync = Promise.promisify(glob);
 
+const ghPages = require('gulp-gh-pages');
+
 const cfgUtils = require('./cfg/utils.js');
 
 
@@ -170,6 +172,27 @@ gulp.task('undeploy:remove', function(callback) {
 
 gulp.task('undeploy', function() {
 	runSequence('undeploy:ftp', 'undeploy:remove');
+});
+
+// github
+gulp.task('github:copy', function() {
+	return gulp.src('./dist/**/*')
+		.pipe(gulp.dest('dist2'));
+});
+
+gulp.task('github:base', function() {
+	return gulp.src('./dist/index.html')
+		.pipe(replace(/\/dist\//, '/wordpress-angularjs-theme/'))
+		.pipe(gulp.dest('dist2'));
+});
+
+gulp.task('github:deploy', function() {
+	return gulp.src('./dist2/**/*')
+		.pipe(ghPages());
+});
+
+gulp.task('github', function() {
+	runSequence('github:copy', 'github:base', 'github:deploy');
 });
 
 // lint

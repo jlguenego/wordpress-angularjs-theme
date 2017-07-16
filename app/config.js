@@ -1,7 +1,7 @@
 angular.module('main')
 	.config((jlgWordpressProvider) => {
 		'ngInject';
-		jlgWordpressProvider.url('http://localhost/repos/wordpress-example/' + 'wp-json');
+		jlgWordpressProvider.url('https://jlg-consulting.com/wordpress/' + 'wp-json');
 	})
 	.run(($rootScope) => {
 		$rootScope.pages = {
