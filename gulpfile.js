@@ -45,7 +45,7 @@ const path = {
 
 // config
 gulp.task('config', function(callback) {
-	var devEnv = cfgUtils.getEnv('dev');
+	const devEnv = cfgUtils.getEnv('dev');
 	console.log('devEnv', devEnv);
 	consolidate.ejs('./app/config.tmpl.js', devEnv).then(function(str) {
 		return fs.writeFileAsync('./app/config.js', str);
@@ -115,20 +115,8 @@ gulp.task('rebuild', function() {
 	runSequence('clean', 'build');
 });
 
-gulp.task('deploy:config', function(callback) {
-	var deployEnv = cfgUtils.getEnv('deploy');
-	consolidate.ejs('./cfg/config.ws.tmpl', deployEnv.ws).then(function(str) {
-		return fs.writeFileAsync('./dist/ws/include/suggested.config.php', str);
-	}).then(function(str) {
-		console.log('./dist/ws/include/suggested.config.php saved.');
-		callback();
-	}).catch(function(error) {
-		console.error('error', error);
-	});
-});
-
 gulp.task('deploy:unzip', function(callback) {
-	var deployEnv = cfgUtils.getEnv('deploy');
+	const deployEnv = cfgUtils.getEnv('deploy');
 	rp(deployEnv.url + 'unzip.php')
 		.then(function(htmlString) {
 			console.log('htmlString', htmlString);
@@ -156,7 +144,7 @@ gulp.task('deploy:ftp', function() {
 });
 
 gulp.task('deploy', ['clean:zip'], function() {
-	runSequence('deploy:config', 'deploy:zip', 'deploy:ftp', 'deploy:unzip');
+	runSequence('deploy:zip', 'deploy:ftp', 'deploy:unzip');
 });
 
 gulp.task('undeploy:ftp', function() {
