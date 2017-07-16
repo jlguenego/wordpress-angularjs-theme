@@ -5,6 +5,6 @@ angular.module('main')
 			services: '<%= pages.services %>',
 			products: '<%= pages.products %>',
 		};
-		jlgWordpress.url = '<%= url %>' + 'wp-json';
+		jlgWordpress.url = '<%= url %>';
 		jlgWordpress.init();
 	});

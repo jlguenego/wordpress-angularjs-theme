@@ -4,3 +4,4 @@ cfg/env.js
 dist/
 dist2/
 app/config.js
+.publish/

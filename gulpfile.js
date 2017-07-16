@@ -58,7 +58,7 @@ gulp.task('config', function(callback) {
 
 // clean
 gulp.task('clean:dist', function() {
-	return del([path.dist]);
+	return del([path.dist, 'dist2']);
 });
 
 gulp.task('clean:zip', function() {
