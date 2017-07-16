@@ -5,7 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "config": "gulp config"
+    "clean": "gulp clean",
+    "config": "gulp config",
+    "rebuild": "gulp rebuild",
+    "deploy": "gulp deploy",
+    "undeploy": "gulp undeploy",
+    "github": "gulp github"
   },
   "keywords": [],
   "author": "",
