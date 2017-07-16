@@ -5,8 +5,8 @@ angular.module('main')
 	})
 	.run(($rootScope) => {
 		$rootScope.pages = {
-			contact: 'Contact',
-			services: 'Services',
-			products: 'Produits',
+			contact: '<%= pages.contact %>',
+			services: '<%= pages.services %>',
+			products: '<%= pages.products %>',
 		};
 	});
