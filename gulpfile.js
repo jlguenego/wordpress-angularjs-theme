@@ -20,7 +20,7 @@ const glob = require('glob');
 
 const Promise = require('bluebird');
 Promise.promisifyAll(fs);
-var globAsync = Promise.promisify(glob);
+const globAsync = Promise.promisify(glob);
 
 const cfgUtils = require('./cfg/utils.js');
 
