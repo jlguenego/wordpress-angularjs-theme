@@ -1,5 +1,6 @@
 import 'angular-sanitize';
 import '../jlg-wordpress/jlg-wordpress.js';
+import './jlg-layout.scss';
 
 const app = angular.module('jlg-layout', [
 	'ngSanitize',
@@ -20,5 +21,6 @@ app.component('jlgBody', {
 
 import jlgFooterUrl from './tmpl/jlg-footer.html';
 app.component('jlgFooter', {
-	template: jlgFooterUrl
+	template: jlgFooterUrl,
+	controller: 'jlgWordpressCtrl'
 });

@@ -1,12 +1,10 @@
 angular.module('main')
-	.config((jlgWordpressProvider) => {
-		'ngInject';
-		jlgWordpressProvider.url('<%= url %>' + 'wp-json');
-	})
-	.run(($rootScope) => {
+	.run(($rootScope, jlgWordpress) => {
 		$rootScope.pages = {
 			contact: '<%= pages.contact %>',
 			services: '<%= pages.services %>',
 			products: '<%= pages.products %>',
 		};
+		jlgWordpress.url = '<%= url %>' + 'wp-json';
+		jlgWordpress.init();
 	});

@@ -5,61 +5,56 @@ const app = angular.module('jlg-wordpress', [
 	'ngSanitize',
 ]);
 
-app.provider('jlgWordpress', function JlgWordpressProvider() {
-	let url;
-	this.url = function() {
-		if (arguments.length) {
-			url = arguments[0];
+app.service('jlgWordpress', function JlgWordpress($log, $q, $http) {
+	'ngInject';
+	const service = this;
+	this.isReady = false;
+	const stack = [];
+	this.url = undefined;
+
+	this.init = () => {
+		$log.debug('jlgWordpress.url', this.url);
+		if (!this.url) {
+			$log.error('JlgWordpress: url not defined in provider!');
+			return;
 		}
-		return url;
-	};
-	this.$get = ($http, $log, $q) => {
-		return new(function JlgWordpress() {
-			'ngInject';
-			const service = this;
-			this.isReady = false;
-			const stack = [];
-			if (!url) {
-				$log.error('JlgWordpress: url not defined in provider!');
+		const url =  this.url + 'wp-json'
+		$q.all([
+			$http.get(url).then(function(response) {
+				$log.debug('response', response);
+				service.info = response.data;
+			}),
+			$http.get(url + '/wp/v2/posts').then(function(response) {
+				$log.debug('response', response);
+				service.posts = response.data;
+			}),
+			$http.get(url + '/wp/v2/media').then(function(response) {
+				$log.debug('response', response);
+				service.medias = response.data;
+			}),
+			$http.get(url + '/wp/v2/pages').then(function(response) {
+				$log.debug('response', response);
+				service.pages = response.data;
+			}),
+		]).then((responses) => {
+			this.isReady = true;
+			$log.debug('stack', stack);
+			while (stack.length) {
+				stack.pop()();
 			}
-			$log.debug('url', url);
-			$q.all([
-				$http.get(url + '').then(function(response) {
-					$log.debug('response', response);
-					service.info = response.data;
-				}),
-				$http.get(url + '/wp/v2/posts').then(function(response) {
-					$log.debug('response', response);
-					service.posts = response.data;
-				}),
-				$http.get(url + '/wp/v2/media').then(function(response) {
-					$log.debug('response', response);
-					service.medias = response.data;
-				}),
-				$http.get(url + '/wp/v2/pages').then(function(response) {
-					$log.debug('response', response);
-					service.pages = response.data;
-				}),
-			]).then((responses) => {
-				this.isReady = true;
-				$log.debug('stack', stack);
-				while (stack.length) {
-					stack.pop()();
-				}
-			}).catch((error) => {
-				$log.error('error', error);
-			});
-
-			service.ready = () => $q(fulfill => {
-				if (this.isReady) {
-					return fulfill();
-				}
-				stack.push(fulfill);
-			});
-
-		})();
-
+		}).catch((error) => {
+			$log.error('error', error);
+		});
 	};
+
+
+	service.ready = () => $q(fulfill => {
+		if (this.isReady) {
+			return fulfill();
+		}
+		stack.push(fulfill);
+	});
+
 });
 
 app.controller('jlgWordpressCtrl', function JlgBodyUrl($http, $log, jlgWordpress) {
